@@ -88,9 +88,9 @@ class arrayNstring {
     public static void rotateMax(int[] arr) {
         int sum = 0;
         int sumIdx = 0;
-        for(int i=0;i<arr.length;i++){
-            sum+=arr[i];
-            sumIdx+=arr[i]*i;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            sumIdx += arr[i] * i;
         }
 
         int maxAns = sumIdx;
@@ -103,13 +103,94 @@ class arrayNstring {
 
     }
 
+    // 003
+    public int lengthOfLongestSubstring(String s) {
+        int[] freq = new int[256];
+        int cnt = 0, si = 0, ei = 0, n = s.length();
+        int ans = 0;
+        int len = 0;
+
+        while (ei < n) {
+            if (freq[s.charAt(ei++)]++ > 0)
+                cnt++;
+
+            while (cnt > 0) {
+                if (freq[s.charAt(si++)]-- > 1)
+                    cnt--;
+            }
+
+            len = Math.max(len, ei - si);
+        }
+
+        return len;
+
+    }
+
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        int si = 0, ei = 0, cnt = 0, ans = 0;
+        int n = s.length();
+        int[] freq = new int[256];
+
+        while (ei < n) {
+
+            if (freq[s.charAt(ei++)]++ == 0)
+                cnt++;
+            while (cnt > 2) {
+                if (freq[s.charAt(si++)]-- == 1)
+                    cnt--;
+            }
+
+            ans = Math.max(ans, ei - si);
+
+        }
+
+        return ans;
+    }
+
+    public String minWindow(String s, String t) {
+        int cnt = 0, si = 0, ei = 0, gsi = 0, gei = 0, len = (int) 1e9;
+        int ns = s.length();
+        int nt = t.length();
+
+        if (nt > ns)
+            return "";
+
+        int[] freq = new int[256];
+
+        for (int i = 0; i < nt; i++) {
+            freq[t.charAt(i)]++;
+            cnt++;
+        }
+
+        while (ei < ns) {
+            if (freq[s.charAt(ei++)]-- > 0)
+                cnt--;
+
+            while (cnt == 0) {
+                if (ei - si < len) {
+                    len = ei - si;
+                    gsi = si;
+                    gei = ei;
+                }
+                if (freq[s.charAt(si++)]++ == 0)
+                    cnt++;
+            }
+        }
+
+        if (len == (int) 1e9)
+            return "";
+        else
+            return s.substring(gsi, gsi + len);
+
+    }
+
     public static void main(String[] args) {
         // int[] arr = new int[]{1,2,3,4,5,6,7,8,9,-1,-2,-3};
         // int[] arr = new int[]{0,1,0,1,0,0,0,0,1,1,1,1,0,0,1,0,1,0};
-        int[] arr = new int[] { 0, 2, 1, 1, 1, 1, 2, 0, 0, 0 };
+        // int[] arr = new int[] { 0, 2, 1, 1, 1, 1, 2, 0, 0, 0 };
         // rotateByK(3,arr);
         // segregatePositiveAndNegative(arr);
-        segregate01(arr);
-        segregate012(arr);
+        // segregate01(arr);
+        // segregate012(arr);
     }
 }
