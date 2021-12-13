@@ -184,6 +184,119 @@ class arrayNstring {
 
     }
 
+    // ================================ gfg - Smallest distinct window
+    public String findSubString(String str) {
+        int cnt = 0, si = 0, ei = 0;
+        int[] freq = new int[256];
+        int n = str.length();
+        for (int i = 0; i < n; i++) {
+            if (freq[str.charAt(i)] == 0) {
+                cnt++;
+                freq[str.charAt(i)]++;
+            }
+        }
+
+        int gsi = 0, len = str.length();
+
+        while (ei < n) {
+            if (freq[str.charAt(ei++)]-- > 0)
+                cnt--;
+
+            while (cnt == 0) {
+                if (ei - si < len) {
+                    len = ei - si;
+                    gsi = si;
+                }
+
+                if (freq[str.charAt(si++)]++ == 0)
+                    cnt++;
+            }
+        }
+
+        return str.substring(gsi, gsi + len);
+
+    }
+
+    // ======================================== lincode 386
+
+    public int lengthOfLongestSubstringKDistinct(String s, int k) {
+        // write your code here
+        int cnt = 0;
+        int len = 0;
+
+        int ei = 0, si = 0, n = s.length();
+        int[] freq = new int[256];
+        // int cnt = 0;
+        while (ei < n) {
+
+            if (freq[s.charAt(ei++)]++ == 0)
+                cnt++;
+
+            while (cnt > k) {
+                if (freq[s.charAt(si++)]-- == 1)
+                    cnt--;
+            }
+
+            len = Math.max(len, ei - si);
+
+        }
+
+        return len;
+    }
+
+    // ====================================== leetcode 1456
+
+    public int maxVowels(String s, int k) {
+        int ans = 0;
+        int si = 0, ei = 0, n = s.length(), cnt = 0;
+
+        while (ei < n) {
+            if (isVowel(s.charAt(ei++)))
+                cnt++;
+
+            if (ei - si >= k && isVowel(s.charAt(si++)))
+                cnt--;
+
+            ans = Math.max(ans, cnt);
+        }
+
+        return ans;
+    }
+
+    public static boolean isVowel(char x) {
+        return x == 'a' || x == 'e' || x == 'i' || x == 'o' || x == 'u';
+    }
+
+    // ====================================== leetcode 1248
+    public int numberOfSubarrays(int[] arr, int k) {
+        int atK = atMost(arr,k);
+        int atK1 = k-1<0?0:atMost(arr,k-1);
+        return atK - atK1;
+    }
+    
+    public int atMost(int[] arr, int k){
+        int cnt = 0;
+        int si=0,ei=0,n=arr.length;
+        int ans = 0;
+        while(ei<n){
+            
+            if((arr[ei++]%2) != 0){
+                cnt++;
+            }
+            
+            while(cnt>k){
+             if((arr[si++]%2) != 0){
+                cnt--;
+             }   
+            }
+            
+            ans += ei-si;
+            
+        }
+        
+        return ans;
+    }
+    
     public static void main(String[] args) {
         // int[] arr = new int[]{1,2,3,4,5,6,7,8,9,-1,-2,-3};
         // int[] arr = new int[]{0,1,0,1,0,0,0,0,1,1,1,1,0,0,1,0,1,0};
