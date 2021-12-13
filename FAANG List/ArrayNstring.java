@@ -46,60 +46,80 @@ class ArrayNstring {
     // ======================================leetcode 11
 
     public int maxArea(int[] arr) {
-        int n=arr.length;
-        int si=0,ei=n-1;
+        int n = arr.length;
+        int si = 0, ei = n - 1;
         int ans = 0;
-        
-        while(si<ei){
-            ans = Math.max(ans,(ei-si)*Math.min(arr[si],arr[ei]));
-            
-            if(arr[si]<arr[ei])
+
+        while (si < ei) {
+            ans = Math.max(ans, (ei - si) * Math.min(arr[si], arr[ei]));
+
+            if (arr[si] < arr[ei])
                 si++;
             else
                 ei--;
         }
         return ans;
-        
+
     }
 
     // =================================== leetcode 977
     public int[] sortedSquares(int[] arr) {
         int[] ans = new int[arr.length];
         int idx = 0;
-        
-        while(idx<arr.length && arr[idx]<0){
+
+        while (idx < arr.length && arr[idx] < 0) {
             idx++;
         }
-        int i=idx-1, j = idx;
+        int i = idx - 1, j = idx;
         int k = 0;
-        while(i>=0 && j<arr.length){
-            int x = arr[i]*arr[i];
-            int y = arr[j]*arr[j];
-            
-            if(x<y){
+        while (i >= 0 && j < arr.length) {
+            int x = arr[i] * arr[i];
+            int y = arr[j] * arr[j];
+
+            if (x < y) {
                 ans[k] = x;
                 i--;
-            }else{
+            } else {
                 ans[k] = y;
                 j++;
             }
             k++;
         }
-        
-        while(i>=0){
-            ans[k] = arr[i]*arr[i];
+
+        while (i >= 0) {
+            ans[k] = arr[i] * arr[i];
             i--;
             k++;
         }
-        
-        while(j<arr.length){
-            ans[k] = arr[j]*arr[j];
+
+        while (j < arr.length) {
+            ans[k] = arr[j] * arr[j];
             j++;
             k++;
         }
-        
+
         return ans;
     }
 
-    // ==================================leetcode 
+    // ==================================leetcode 665
+    public boolean checkPossibility(int[] arr) {
+        int cnt = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1] && cnt == 0) {
+                cnt++;
+                if (i > 0 && arr[i - 1] > arr[i + 1]) {
+                    arr[i + 1] = arr[i];
+                } else {
+                    arr[i] = arr[i + 1];
+                }
+            } else if (cnt == 1 && (arr[i] > arr[i + 1])) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    // =========================== leetcode 
 }
