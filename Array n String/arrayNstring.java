@@ -297,6 +297,132 @@ class arrayNstring {
         return ans;
     }
     
+    // =========================== leetcode 904
+
+    public int totalFruit(int[] arr) {
+        int si=0,ei=0,n=arr.length,cnt=0,ans=0;
+        int[] freq = new int[n];
+        while(ei<n){
+            if(freq[arr[ei++]]++==0)cnt++;
+            
+            while(cnt>2){
+                if(freq[arr[si++]]--==1)cnt--;
+            }
+            
+            ans = Math.max(ans,ei-si);
+        }
+        
+        return ans;
+    }
+
+    // ============================= leetcode 930
+    public int numSubarraysWithSum(int[] nums, int goal) {
+        return AtMostSum(nums, goal) - (goal == 0?0:AtMostSum(nums,goal-1));
+    }
+    
+    public int AtMostSum(int[] arr, int k){
+        int si =0, ei=0, n= arr.length, cnt = 0;
+        int sum = 0;
+        while(ei<n){
+            sum+= arr[ei++];
+            while(sum>k){
+                sum-= arr[si++];
+            }
+            
+            cnt += ei-si;
+        }
+        
+        return cnt;
+    }
+    // ======================================= leetcode 485
+    public int findMaxConsecutiveOnes(int[] arr) {
+        int si=0,ei=0,ans=0, n=arr.length;
+        
+        while(ei<n){
+            if(arr[ei++]==0){
+                si=ei;
+            }
+            ans = Math.max(ans,ei-si);
+        }
+        return ans;
+        
+    }
+
+    // ============================ leetcode 487 / lintcode 883
+    public int findMaxConsecutiveOnes_2(int[] arr) {
+
+        int si=0,ei=0,cnt=0,ans=0,n=arr.length;
+        while(ei<n){
+            if(arr[ei++] == 0)cnt++;
+            while(cnt>1){
+                if(arr[si++]==0)cnt--;
+            }
+            ans= Math.max(ans, ei-si);
+        }
+        return ans;
+
+    }
+
+    // ====================================================== leetcode 1004
+
+    public int longestOnes(int[] arr, int k) {
+        int si=0,ei=0,cnt=0,ans=0,n=arr.length;
+        while(ei<n){
+            if(arr[ei++] == 0)cnt++;
+            while(cnt>k){
+                if(arr[si++]==0)cnt--;
+            }
+            ans= Math.max(ans, ei-si);
+        }
+        return ans;
+    }
+    // ========================== leetcode 974
+    public int subarraysDivByK(int[] arr, int k) {
+    
+        int si=0,ei=0,n=arr.length,ans = 0;
+         int[] freq = new int[k];
+         int sum = 0;
+         freq[0] = 1;
+         while(ei<n){
+             sum += arr[ei++];
+             int rem = (sum%k+k)%k;
+             ans += freq[rem]++;
+         }
+         return ans;
+     }
+
+    //  ========================= gfg cnt subarray equal 0 N 1
+    static int countSubarrWithEqualZeroAndOne(int arr[], int n)
+    {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int ei = 0, ans = 0, sum = 0;
+        map.put(0,1);
+        while(ei<n){
+            int val = arr[ei++];
+            sum += val == 1? 1:-1;
+            ans += map.getOrDefault(sum,0);
+            map.put(sum, map.getOrDefault(sum,0)+1);
+        }
+        return ans;
+    }
+
+    // ============================ 525 
+    public int findMaxLength(int[] arr) {
+    
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int ei=0,n = arr.length, ans = 0, sum =0;
+        map.put(0,0);
+        while(ei<n){
+            int val = arr[ei++];
+            sum += val == 1 ? 1: -1;
+            map.putIfAbsent(sum, ei);
+            ans = Math.max(ans, ei - map.get(sum));
+        }
+        
+        return ans;
+    }
+
+    // ================================
     public static void main(String[] args) {
         // int[] arr = new int[]{1,2,3,4,5,6,7,8,9,-1,-2,-3};
         // int[] arr = new int[]{0,1,0,1,0,0,0,0,1,1,1,1,0,0,1,0,1,0};
