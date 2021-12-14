@@ -121,5 +121,23 @@ class ArrayNstring {
 
     }
 
-    // =========================== leetcode 
+    // =========================== leetcode 152
+
+    public int maxProduct(int[] arr) {
+        int l = 1, r = 1, ans = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+
+            l = l == 0 ? 1 : l;
+            r = r == 0 ? 1 : r;
+
+            l *= arr[i];
+            r *= arr[arr.length - 1 - i];
+
+            ans = Math.max(ans, Math.max(l, r));
+        }
+
+        return ans;
+    }
+
+    // ================================ leetcode 
 }
