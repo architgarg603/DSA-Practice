@@ -139,5 +139,43 @@ class ArrayNstring {
         return ans;
     }
 
-    // ================================ leetcode 
+    // ================================ leetcode 556
+    public int nextGreaterElement(int n) {
+        if(n>2147483647)return -1;
+        String str = n+"";
+        char[] arr = str.toCharArray();
+        int i = arr.length -2;
+        
+        while(i>=0 && arr[i]>=arr[i+1])i--;
+        if(i<0)return -1;
+        int x = i+1;
+        int y = arr.length-1;
+        
+        for(int k = arr.length-1;k>=0;k--){
+            if(arr[k]>arr[i]){
+                char temp = arr[i];
+                arr[i] = arr[k];
+                arr[k] = temp;  
+                break;
+            }
+        }
+       
+        String ans = "";
+        
+        while(x<y){
+            char temps = arr[x];
+            arr[x] = arr[y];
+            arr[y] = temps;
+            x++;y--;
+        }
+        
+        
+        for(int k=0;k<arr.length;k++)ans += arr[k];
+        
+        
+        long val = Long.valueOf(ans);
+        return val <= Integer.MAX_VALUE ? (int) val : -1;
+    }
+
+    // =================================== leetcode
 }
