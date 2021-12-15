@@ -141,41 +141,158 @@ class ArrayNstring {
 
     // ================================ leetcode 556
     public int nextGreaterElement(int n) {
-        if(n>2147483647)return -1;
-        String str = n+"";
+        if (n > 2147483647)
+            return -1;
+        String str = n + "";
         char[] arr = str.toCharArray();
-        int i = arr.length -2;
-        
-        while(i>=0 && arr[i]>=arr[i+1])i--;
-        if(i<0)return -1;
-        int x = i+1;
-        int y = arr.length-1;
-        
-        for(int k = arr.length-1;k>=0;k--){
-            if(arr[k]>arr[i]){
+        int i = arr.length - 2;
+
+        while (i >= 0 && arr[i] >= arr[i + 1])
+            i--;
+        if (i < 0)
+            return -1;
+        int x = i + 1;
+        int y = arr.length - 1;
+
+        for (int k = arr.length - 1; k >= 0; k--) {
+            if (arr[k] > arr[i]) {
                 char temp = arr[i];
                 arr[i] = arr[k];
-                arr[k] = temp;  
+                arr[k] = temp;
                 break;
             }
         }
-       
+
         String ans = "";
-        
-        while(x<y){
+
+        while (x < y) {
             char temps = arr[x];
             arr[x] = arr[y];
             arr[y] = temps;
-            x++;y--;
+            x++;
+            y--;
         }
-        
-        
-        for(int k=0;k<arr.length;k++)ans += arr[k];
-        
-        
+
+        for (int k = 0; k < arr.length; k++)
+            ans += arr[k];
+
         long val = Long.valueOf(ans);
         return val <= Integer.MAX_VALUE ? (int) val : -1;
     }
 
-    // =================================== leetcode
+    // =================================== leetcode 881
+    public int numRescueBoats(int[] arr, int k) {
+        Arrays.sort(arr);
+        int si = 0, ei = arr.length - 1;
+
+        int ans = 0;
+
+        while (si <= ei) {
+            if (si < ei && arr[si] + arr[ei] > k) {
+                ans++;
+                ei--;
+            } else {
+                ans++;
+                si++;
+                ei--;
+            }
+        }
+
+        return ans;
+
+    }
+
+    // ============================================= leetcode 628
+    public int maximumProduct(int[] arr) {
+        Arrays.sort(arr);
+        int b = arr[0] * arr[1] * arr[arr.length - 1];
+        int d = arr[arr.length - 1] * arr[arr.length - 2] * arr[arr.length - 3];
+
+        return Math.max(b, d);
+    }
+
+    public int maximumProduct_optimized(int[] arr) {
+        int min1 = Integer.MAX_VALUE, min2 = Integer.MAX_VALUE;
+        int max1 = Integer.MIN_VALUE, max2 = Integer.MIN_VALUE, max3 = Integer.MIN_VALUE;
+
+        for (int x : arr) {
+            if (x > max3) {
+                max1 = max2;
+                max2 = max3;
+                max3 = x;
+            } else if (x > max2) {
+                max1 = max2;
+                max2 = x;
+            } else if (x > max1) {
+                max1 = x;
+            }
+
+            if (x < min2) {
+                min1 = min2;
+                min2 = x;
+            } else if (x < min1) {
+                min1 = x;
+            }
+        }
+
+        return Math.max(max1 * max2 * max3, max3 * min1 * min2);
+    }
+
+    // ================================== leetcode 1
+    public int[] twoSum(int[] arr, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+
+            if (map.containsKey(k - arr[i])) {
+                return new int[] { map.get(k - arr[i]), i };
+            } else {
+                map.put(arr[i], i);
+            }
+        }
+        return new int[] { 0, 1 };
+    }
+
+    // ================================== leetcode 769
+    public int maxChunksToSorted(int[] arr) {
+        int ans = 0;
+        int max = 0;
+        for (int i = 0; i < arr.length; i++) {
+            max = Math.max(arr[i], max);
+            if (max == i)
+                ans++;
+        }
+
+        return ans;
+    }
+
+    // ================================= leetcode 768
+    public int maxChunksToSorted(int[] arr) {
+        int ans = 0;
+        int maxi = Integer.MIN_VALUE;
+        int mini = Integer.MAX_VALUE;
+
+        int[] max = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            maxi = Math.max(arr[i], maxi);
+            max[i] = maxi;
+        }
+
+        int[] min = new int[arr.length];
+        for (int i = arr.length - 1; i >= 0; i--) {
+            mini = Math.min(arr[i], mini);
+            min[i] = mini;
+        }
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (min[i + 1] >= max[i])
+                ans++;
+        }
+
+        return ans + 1;
+    }
+    // ================================ leetcode 768
+    
+
 }
