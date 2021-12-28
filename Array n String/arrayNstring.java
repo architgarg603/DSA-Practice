@@ -406,7 +406,7 @@ class arrayNstring {
         return ans;
     }
 
-    // ============================ 525 
+    // ============================ leetcode 525 
     public int findMaxLength(int[] arr) {
     
         HashMap<Integer,Integer> map = new HashMap<>();
@@ -422,7 +422,24 @@ class arrayNstring {
         return ans;
     }
 
-    // ================================
+    // ================================ 239
+    public int[] maxSlidingWindow(int[] arr, int k) {
+        LinkedList<Integer> qu = new LinkedList<>();
+        
+        int[] ans = new int[arr.length-k+1];
+        int n = arr.length;
+        for(int i=0;i<n;i++){
+            while(qu.size()>0 && qu.getFirst()<=i-k)qu.removeFirst();
+            while(qu.size()>0 && arr[qu.getLast()]<=arr[i])qu.removeLast();
+            qu.addLast(i);
+            if(i>=k-1)ans[i-k+1] = arr[qu.getFirst()];
+        }
+        
+        return ans;
+        
+        
+        
+    } 
     public static void main(String[] args) {
         // int[] arr = new int[]{1,2,3,4,5,6,7,8,9,-1,-2,-3};
         // int[] arr = new int[]{0,1,0,1,0,0,0,0,1,1,1,1,0,0,1,0,1,0};
