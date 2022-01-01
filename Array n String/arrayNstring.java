@@ -439,6 +439,46 @@ class arrayNstring {
         
         
         
+    }
+
+    // =============================== leetcode 1191
+    static int mod = (int)1e9+7;
+    public int kadane(int[] arr){
+        int n = arr.length;
+        int gsum = arr[0];
+        int sum = 0;
+        
+        for(int x : arr){
+            sum = Math.max(x, sum+x);
+            gsum = Math.max(sum,gsum);
+        }
+        
+        return gsum;
+    }
+    
+    
+    public int kConcatenationMaxSum(int[] arr, int k) {
+        if(k==0)return 0;
+        if(k==1)return kadane(arr);
+        
+        long kSum = kadane(arr);
+        
+        long prefixSum=0, postfixSum=0, sum = 0;
+        int n = arr.length;
+        long prSum=0,poSum = 0;
+        for(int i=0,j=n-1;i<n;i++,j--){
+            prSum += arr[i];
+            poSum += arr[j];
+            sum += arr[i];
+            
+            prefixSum = Math.max(prefixSum, prSum);
+            postfixSum = Math.max(postfixSum, poSum);
+        }
+        System.out.println(kSum);
+        if(sum<0)sum=0;
+        else sum = sum%mod;
+        return (int) Math.max(kSum, postfixSum + prefixSum + ((k-2)* sum)%mod)%mod;
+        
     } 
     public static void main(String[] args) {
         // int[] arr = new int[]{1,2,3,4,5,6,7,8,9,-1,-2,-3};
