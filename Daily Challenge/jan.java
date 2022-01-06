@@ -66,6 +66,24 @@ class jan {
         }
 
     }
-    // =======================================================
+
+    // ======================================================= leetcode 1094
+    public boolean carPooling(int[][] arr, int cap) {
+
+        int[] freq = new int[1100];
+        for (int[] x : arr) {
+            freq[x[1]] += x[0];
+            freq[x[2]] -= x[0];
+        }
+        int ans = 0;
+        for (int x : freq) {
+            ans += x;
+            if (ans > cap)
+                return false;
+        }
+
+        return true;
+
+    }
 
 }
