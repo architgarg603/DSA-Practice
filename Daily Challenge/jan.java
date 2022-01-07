@@ -85,5 +85,28 @@ class jan {
         return true;
 
     }
+    //========================================= leetcode 382
+    int[] nums;
+    public Solution(ListNode head) {
+        int size=0;
+        ListNode temp = head;
+        while(head!=null){
+            size++;
+            head = head.next;
+        }
+        nums = new int[size];
+        int cnt = 0;
+        while(temp!=null){
+            nums[cnt] = temp.val;
+            temp = temp.next;
+            cnt++;
+        }
+    }
+    
+    public int getRandom() {
+        int idx =(int) (Math.random() * nums.length);
+        return nums[idx];
+    }
+
 
 }
