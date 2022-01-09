@@ -166,4 +166,40 @@ class jan {
         dpCache[row][col1][col2] = result;
         return result;
     }
+
+     public boolean isRobotBounded(String str) {
+        int dir = 0;
+        int x=0,y=0;
+        char[] arr =  str.toCharArray();
+        for(char ch : arr){
+            if(ch == 'R'){
+                dir  = (dir+1)%4;
+            }else if(ch == 'L'){
+                dir = (dir-1+4)%4;
+            }else{
+                switch(dir){
+                    case 0 :{
+                        y++;
+                        break;
+                    }
+                    case 1:{
+                        x++;
+                        break;
+                    }
+                    case 2: {
+                        y--;
+                        break;
+                    }
+                    case 3:{
+                        x--;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if(x==0 && y ==0)return true;
+        if(dir != 0)return true;
+        return false;
+    }
 }
