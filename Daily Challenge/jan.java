@@ -202,4 +202,37 @@ class jan {
         if(dir != 0)return true;
         return false;
     }
+
+    // ======================== leetcode 67
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        int i=a.length()-1, j = b.length()-1;
+        int car = 0;
+        while(i>=0 && j>=0){
+            int sum = a.charAt(i) + b.charAt(j) - '0' - '0' + car;
+            car = sum/2;
+            sb.append(sum%2);
+            i--;
+            j--;
+            
+        }
+        while(i>=0){
+            int sum = a.charAt(i)  - '0' + car;
+            car = sum/2;
+            sb.append(sum%2);
+            i--;
+            
+        }
+        
+        while( j>=0){
+            int sum = b.charAt(j) - '0' + car;
+            car = sum/2;
+            sb.append(sum%2);
+            j--;
+        }
+        
+        if(car>0)sb.append(1);
+        
+        return sb.reverse().toString();
+    }
 }
