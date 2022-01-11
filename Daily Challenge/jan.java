@@ -15,6 +15,25 @@ class ListNode {
     }
 }
 
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode() {
+    }
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
 class jan {
 
     public int findJudge(int n, int[][] arr) {
@@ -167,22 +186,22 @@ class jan {
         return result;
     }
 
-     public boolean isRobotBounded(String str) {
+    public boolean isRobotBounded(String str) {
         int dir = 0;
-        int x=0,y=0;
-        char[] arr =  str.toCharArray();
-        for(char ch : arr){
-            if(ch == 'R'){
-                dir  = (dir+1)%4;
-            }else if(ch == 'L'){
-                dir = (dir-1+4)%4;
-            }else{
-                switch(dir){
-                    case 0 :{
+        int x = 0, y = 0;
+        char[] arr = str.toCharArray();
+        for (char ch : arr) {
+            if (ch == 'R') {
+                dir = (dir + 1) % 4;
+            } else if (ch == 'L') {
+                dir = (dir - 1 + 4) % 4;
+            } else {
+                switch (dir) {
+                    case 0: {
                         y++;
                         break;
                     }
-                    case 1:{
+                    case 1: {
                         x++;
                         break;
                     }
@@ -190,49 +209,71 @@ class jan {
                         y--;
                         break;
                     }
-                    case 3:{
+                    case 3: {
                         x--;
                         break;
                     }
                 }
             }
         }
-        
-        if(x==0 && y ==0)return true;
-        if(dir != 0)return true;
+
+        if (x == 0 && y == 0)
+            return true;
+        if (dir != 0)
+            return true;
         return false;
     }
 
     // ======================== leetcode 67
     public String addBinary(String a, String b) {
         StringBuilder sb = new StringBuilder();
-        int i=a.length()-1, j = b.length()-1;
+        int i = a.length() - 1, j = b.length() - 1;
         int car = 0;
-        while(i>=0 && j>=0){
+        while (i >= 0 && j >= 0) {
             int sum = a.charAt(i) + b.charAt(j) - '0' - '0' + car;
-            car = sum/2;
-            sb.append(sum%2);
+            car = sum / 2;
+            sb.append(sum % 2);
             i--;
             j--;
-            
+
         }
-        while(i>=0){
-            int sum = a.charAt(i)  - '0' + car;
-            car = sum/2;
-            sb.append(sum%2);
+        while (i >= 0) {
+            int sum = a.charAt(i) - '0' + car;
+            car = sum / 2;
+            sb.append(sum % 2);
             i--;
-            
+
         }
-        
-        while( j>=0){
+
+        while (j >= 0) {
             int sum = b.charAt(j) - '0' + car;
-            car = sum/2;
-            sb.append(sum%2);
+            car = sum / 2;
+            sb.append(sum % 2);
             j--;
         }
-        
-        if(car>0)sb.append(1);
-        
+
+        if (car > 0)
+            sb.append(1);
+
         return sb.reverse().toString();
+    }
+
+    // ========================================= leetcode 1022
+    public int sumRootToLeaf(TreeNode root) {
+
+        return sumRootToLeaf_Helper(root, 0);
+    }
+
+    public static int sumRootToLeaf_Helper(TreeNode root, int sum) {
+        if (root == null)
+            return 0;
+
+        sum = (2 * sum) + root.val;
+
+        if (root.left == null && root.right == null)
+            return sum;
+
+        return sumRootToLeaf_Helper(root.left, sum) + sumRootToLeaf_Helper(root.right, sum);
+
     }
 }
