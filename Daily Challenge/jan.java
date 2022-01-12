@@ -276,4 +276,18 @@ class jan {
         return sumRootToLeaf_Helper(root.left, sum) + sumRootToLeaf_Helper(root.right, sum);
 
     }
+
+    // =============================== leetcode 701
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null)
+            return new TreeNode(val);
+
+        if (val < root.val)
+            root.left = insertIntoBST(root.left, val);
+        else
+            root.right = insertIntoBST(root.right, val);
+
+        return root;
+
+    }
 }
