@@ -290,4 +290,20 @@ class jan {
         return root;
 
     }
+    // ======================================== leetcode 452
+
+    public int findMinArrowShots(int[][] arr) {
+        Arrays.sort(arr, (a, b) -> Integer.compare(a[1], b[1]));
+        int ans = 1;
+        int end = arr[0][1];
+        for (int i = 0; i < arr.length; i++) {
+            if (end < arr[i][0]) {
+                ans++;
+                end = arr[i][1];
+            }
+        }
+
+        return ans;
+
+    }
 }
