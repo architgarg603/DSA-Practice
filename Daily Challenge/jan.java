@@ -306,4 +306,42 @@ class jan {
         return ans;
 
     }
+    // ========================================= leetcode 8
+    public int myAtoi(String s) {
+        long ans = 0;
+        int checkNumber = 0;
+        int checkNegetive = 0;
+        int checkWord = 0;
+        
+        s= s.trim();
+        s= s.split(" ")[0];
+        
+        
+        
+        
+        for(int i=0;i<s.length();i++){
+            char x = s.charAt(i);
+            
+            if((x < '0' || x > '9')){
+                              
+                if(checkNumber==0 && x==' ' )continue;
+                 checkWord++;
+                if(checkWord<=1 && checkNumber == 0 && (x == '-' || x == '+')){
+                    checkNegetive = x=='-'?1:0;
+                    continue;
+                }
+                return checkNegetive==1?(int)-ans:(int)ans;
+            }
+           
+            
+          
+            ans = ans*10 + (x-'0');
+            checkNumber = 1;
+            if(ans>Integer.MAX_VALUE)return checkNegetive==1?Integer.MIN_VALUE : Integer.MAX_VALUE;
+        }
+        
+        return checkNegetive==1?(int)-ans:(int)ans;
+        
+    }
+
 }
