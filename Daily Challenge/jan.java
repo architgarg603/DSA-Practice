@@ -306,42 +306,76 @@ class jan {
         return ans;
 
     }
+
     // ========================================= leetcode 8
     public int myAtoi(String s) {
         long ans = 0;
         int checkNumber = 0;
         int checkNegetive = 0;
         int checkWord = 0;
-        
-        s= s.trim();
-        s= s.split(" ")[0];
-        
-        
-        
-        
-        for(int i=0;i<s.length();i++){
+
+        s = s.trim();
+        s = s.split(" ")[0];
+
+        for (int i = 0; i < s.length(); i++) {
             char x = s.charAt(i);
-            
-            if((x < '0' || x > '9')){
-                              
-                if(checkNumber==0 && x==' ' )continue;
-                 checkWord++;
-                if(checkWord<=1 && checkNumber == 0 && (x == '-' || x == '+')){
-                    checkNegetive = x=='-'?1:0;
+
+            if ((x < '0' || x > '9')) {
+
+                if (checkNumber == 0 && x == ' ')
+                    continue;
+                checkWord++;
+                if (checkWord <= 1 && checkNumber == 0 && (x == '-' || x == '+')) {
+                    checkNegetive = x == '-' ? 1 : 0;
                     continue;
                 }
-                return checkNegetive==1?(int)-ans:(int)ans;
+                return checkNegetive == 1 ? (int) -ans : (int) ans;
             }
-           
-            
-          
-            ans = ans*10 + (x-'0');
+
+            ans = ans * 10 + (x - '0');
             checkNumber = 1;
-            if(ans>Integer.MAX_VALUE)return checkNegetive==1?Integer.MIN_VALUE : Integer.MAX_VALUE;
+            if (ans > Integer.MAX_VALUE)
+                return checkNegetive == 1 ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         }
-        
-        return checkNegetive==1?(int)-ans:(int)ans;
-        
+
+        return checkNegetive == 1 ? (int) -ans : (int) ans;
+
+    }
+
+    // =============================================letcode 1345
+    public int minJumps(int[] arr) {
+        if (arr.length == 1)
+            return 0;
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            map.putIfAbsent(arr[i], new ArrayList<>());
+            map.get(arr[i]).add(i);
+        }
+        int ans = 0;
+        Queue<Integer> qu = new LinkedList<>();
+        qu.add(0);
+        while (qu.size() > 0) {
+            ans++;
+            int size = qu.size();
+            for (int i = 0; i < size; i++) {
+                int x = qu.remove();
+                if (x == arr.length - 1)
+                    return ans - 1;
+                if (x - 1 >= 0 && map.containsKey(arr[x - 1])) {
+                    qu.add(x - 1);
+                }
+                if (x + 1 < arr.length && map.containsKey(arr[x + 1])) {
+                    qu.add(x + 1);
+                }
+
+                ArrayList<Integer> temp = map.getOrDefault(arr[x], new ArrayList<>());
+                for (int j = 0; j < temp.size(); j++)
+                    qu.add(temp.get(j));
+                map.remove(arr[x]);
+            }
+        }
+        return ans - 1;
+
     }
 
 }
