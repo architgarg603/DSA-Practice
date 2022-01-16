@@ -378,4 +378,36 @@ class jan {
 
     }
 
+    // ================================= leetcode 849
+    public int maxDistToClosest(int[] arr) {
+        if (arr.length == 2)
+            return 1;
+        int ans = 0;
+        int cnt = 0;
+        int n = arr.length;
+
+        if (arr[0] == 0) {
+            for (int i = 0; i < arr.length && arr[i] == 0; i++)
+                cnt++;
+        }
+        ans = Math.max(ans, cnt);
+
+        cnt = 0;
+        if (arr[n - 1] == 0) {
+            for (int i = n - 1; i >= 0 && arr[i] == 0; i--)
+                cnt++;
+        }
+        ans = Math.max(ans, cnt);
+        int i = 0, j = 0;
+        while (j < n) {
+            if (arr[j] == 1) {
+                ans = Math.max(ans, (j - i + 1) / 2);
+                i = j + 1;
+            }
+            j++;
+        }
+
+        return ans;
+
+    }
 }
