@@ -410,4 +410,25 @@ class jan {
         return ans;
 
     }
+
+    // ================================================ leetcode290
+    public boolean wordPattern(String p, String s) {
+        HashMap<String, Character> map = new HashMap<>();
+        String[] str = s.split(" ");
+        if (p.length() != str.length)
+            return false;
+
+        for (int i = 0; i < str.length; i++) {
+            if (map.containsKey(str[i])) {
+                if (map.get(str[i]) != p.charAt(i))
+                    return false;
+            } else {
+                if (map.containsValue(p.charAt(i)))
+                    return false;
+                map.put(str[i], p.charAt(i));
+            }
+        }
+
+        return true;
+    }
 }
