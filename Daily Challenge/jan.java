@@ -458,4 +458,30 @@ class jan {
         }
         return cnt <= 0;
     }
+
+    // ======================== leetcode 142
+    public ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null)
+            return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        fast = fast.next.next;
+        slow = slow.next;
+        while (fast != null && fast.next != null) {
+            if (fast == slow)
+                break;
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        slow = head;
+        if (fast == null || fast.next == null)
+            return null;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return fast;
+
+    }
 }
