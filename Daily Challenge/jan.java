@@ -484,4 +484,32 @@ class jan {
         return fast;
 
     }
+
+    // ============================== leetcode 875
+    public int minEatingSpeed(int[] arr, int h) {
+        int si = 1, ei = Integer.MAX_VALUE;
+
+        while (si < ei) {
+            int mid = si + (ei - si) / 2;
+            if (checkValid(arr, h, mid)) {
+                ei = mid;
+            } else {
+                si = mid + 1;
+            }
+        }
+
+        return ei;
+    }
+
+    public static boolean checkValid(int[] arr, int h, int k) {
+        int totalHr = 0;
+        for (int i = 0; i < arr.length; i++) {
+            totalHr += arr[i] / k;
+            if (arr[i] % k > 0)
+                totalHr++;
+        }
+
+        return totalHr <= h;
+
+    }
 }
