@@ -530,4 +530,15 @@ class jan {
 
         return totalGas < 0 ? -1 : idx;
     }
+
+    // ===================== 520
+    public boolean detectCapitalUse(String str) {
+        int ans = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) >= 'A' && str.charAt(i) <= 'Z')
+                ans++;
+        }
+
+        return ans == str.length() || (ans == 1 && str.charAt(0) >= 'A' && str.charAt(0) <= 'Z') || ans == 0;
+    }
 }
