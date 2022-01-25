@@ -541,4 +541,22 @@ class jan {
 
         return ans == str.length() || (ans == 1 && str.charAt(0) >= 'A' && str.charAt(0) <= 'Z') || ans == 0;
     }
+
+    // =================== leetcode 941
+    public boolean validMountainArray(int[] arr) {
+        if(arr.length<=2)return false;
+        int[] checkInc = new int[arr.length];
+        checkInc[0] = 1;
+        for(int i=1;i<arr.length;i++) {
+            checkInc[i] = (arr[i]>arr[i-1] && checkInc[i-1]==1)?1:0;
+        }
+        for(int i = arr.length-2;i>=1;i--){
+            if(arr[i]>arr[i+1] && checkInc[i] == 1)return true;
+            if(arr[i]<=arr[i+1])return false;
+        }
+        
+        
+        
+        return false;
+    }
 }
