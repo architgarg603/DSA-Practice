@@ -544,19 +544,64 @@ class jan {
 
     // =================== leetcode 941
     public boolean validMountainArray(int[] arr) {
-        if(arr.length<=2)return false;
+        if (arr.length <= 2)
+            return false;
         int[] checkInc = new int[arr.length];
         checkInc[0] = 1;
-        for(int i=1;i<arr.length;i++) {
-            checkInc[i] = (arr[i]>arr[i-1] && checkInc[i-1]==1)?1:0;
+        for (int i = 1; i < arr.length; i++) {
+            checkInc[i] = (arr[i] > arr[i - 1] && checkInc[i - 1] == 1) ? 1 : 0;
         }
-        for(int i = arr.length-2;i>=1;i--){
-            if(arr[i]>arr[i+1] && checkInc[i] == 1)return true;
-            if(arr[i]<=arr[i+1])return false;
+        for (int i = arr.length - 2; i >= 1; i--) {
+            if (arr[i] > arr[i + 1] && checkInc[i] == 1)
+                return true;
+            if (arr[i] <= arr[i + 1])
+                return false;
         }
-        
-        
-        
+
         return false;
+    }
+
+    // ============================ leetcode 1305
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        List<Integer> t1 = new ArrayList<>();
+        List<Integer> t2 = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
+        inOrder(root1, t1);
+        inOrder(root2, t2);
+
+        int i = 0, j = 0;
+        int x = 0;
+        int y = 0;
+        while (i < t1.size() && j < t2.size()) {
+            x = t1.get(i);
+            y = t2.get(j);
+            if (x < y) {
+                ans.add(x);
+                i++;
+            } else {
+                ans.add(y);
+                j++;
+            }
+        }
+
+        while (i < t1.size()) {
+            ans.add(t1.get(i));
+            i++;
+        }
+
+        while (j < t2.size()) {
+            ans.add(t2.get(j));
+            j++;
+        }
+
+        return ans;
+    }
+
+    public void inOrder(TreeNode r1, List<Integer> ans) {
+        if (r1 == null)
+            return;
+        inOrder(r1.left, ans);
+        ans.add(r1.val);
+        inOrder(r1.right, ans);
     }
 }
