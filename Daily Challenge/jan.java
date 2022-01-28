@@ -604,4 +604,53 @@ class jan {
         ans.add(r1.val);
         inOrder(r1.right, ans);
     }
+
+    // =========================== leetcode 211
+    class WordDictionary {
+
+        WordDictionary[] child = new WordDictionary[26];
+        boolean isEnd = false;
+
+        public WordDictionary() {
+
+        }
+
+        public void addWord(String str) {
+            WordDictionary cur = this;
+            for (int i = 0; i < str.length(); i++) {
+                if (cur.child[str.charAt(i) - 'a'] == null) {
+                    cur.child[str.charAt(i) - 'a'] = new WordDictionary();
+                }
+                cur = cur.child[str.charAt(i) - 'a'];
+            }
+
+            cur.isEnd = true;
+        }
+
+        public boolean search(String str) {
+            WordDictionary cur = this;
+            for (int i = 0; i < str.length(); i++) {
+                int ch = str.charAt(i);
+
+                if (ch == '.') {
+                    for (int j = 0; j < 26; j++) {
+
+                        if (cur.child[j] != null && cur.child[j].search(str.substring(i + 1)))
+                            return true;
+                    }
+                    return false;
+                }
+
+                if (cur.child[ch - 'a'] == null)
+                    return false;
+
+                cur = cur.child[ch - 'a'];
+
+            }
+
+            return (cur != null && cur.isEnd == true);
+
+        }
+    }
+    // ====================================
 }
