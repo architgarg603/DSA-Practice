@@ -652,5 +652,44 @@ class jan {
 
         }
     }
-    // ====================================
+
+    // ==================================== leetcode 84
+    
+    public int largestRectangleArea(int[] arr) {
+        int n = arr.length;
+        Stack<Integer> st = new Stack<>();
+        int[] left = new int[n];
+        int[] right = new int[n];
+
+        for (int i = 0; i < n; i++) {
+
+            while (st.size() > 0 && arr[st.peek()] >= arr[i]) {
+                st.pop();
+            }
+
+            left[i] = (st.size() == 0 ? -1 : st.peek());
+            st.push(i);
+
+        }
+
+        while (st.size() > 0)
+            st.pop();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (st.size() > 0 && arr[st.peek()] >= arr[i])
+                st.pop();
+
+            right[i] = (st.size() == 0 ? n : st.peek());
+
+            st.push(i);
+        }
+
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans = Math.max(ans, (right[i] - left[i] - 1) * arr[i]);
+        }
+
+        return ans;
+
+    }
 }
