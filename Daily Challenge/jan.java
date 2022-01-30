@@ -654,7 +654,7 @@ class jan {
     }
 
     // ==================================== leetcode 84
-    
+
     public int largestRectangleArea(int[] arr) {
         int n = arr.length;
         Stack<Integer> st = new Stack<>();
@@ -691,5 +691,26 @@ class jan {
 
         return ans;
 
+    }
+
+    // =========================== leetcode 189
+    public void rotate(int[] arr, int k) {
+        int n = arr.length;
+        k = k % n;
+
+        rotate(arr, 0, n - 1 - k);
+        rotate(arr, n - k, n - 1);
+        rotate(arr, 0, n - 1);
+
+    }
+
+    public void rotate(int[] arr, int si, int ei) {
+        while (si < ei) {
+            int temp = arr[si];
+            arr[si] = arr[ei];
+            arr[ei] = temp;
+            si++;
+            ei--;
+        }
     }
 }
