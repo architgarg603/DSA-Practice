@@ -42,4 +42,40 @@ class feb {
 
     }
 
+    // ========================== leetcode 454
+    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+        ArrayList<Integer> t1 = pair_(nums1, nums2);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        pair_Map(nums3, nums4, map);
+
+        int ans = 0;
+        for (int i = 0; i < t1.size(); i++) {
+            if (map.containsKey(-t1.get(i))) {
+                ans += map.get(-t1.get(i));
+            }
+        }
+
+        return ans;
+
+    }
+
+    public ArrayList<Integer> pair_(int[] arr1, int[] arr2) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < arr1.length; i++) {
+            for (int j = 0; j < arr2.length; j++) {
+                arr.add(arr1[i] + arr2[j]);
+            }
+        }
+
+        return arr;
+    }
+
+    public static void pair_Map(int[] arr1, int[] arr2, HashMap<Integer, Integer> map) {
+        for (int i = 0; i < arr1.length; i++) {
+            for (int j = 0; j < arr2.length; j++) {
+                int sum = (arr1[i] + arr2[j]);
+                map.put(sum, map.getOrDefault(sum, 0) + 1);
+            }
+        }
+    }
 }
