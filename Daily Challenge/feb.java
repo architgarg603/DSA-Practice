@@ -78,4 +78,32 @@ class feb {
             }
         }
     }
+
+    // ================================ leetcode 525
+
+    public int findMaxLength(int[] arr) {
+        int[] freq = new int[2 * (arr.length + 2)];
+        int sum = arr.length;
+        int ans = 0;
+        Arrays.fill(freq, -1);
+        freq[sum] = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            sum += (arr[i] == 0) ? -1 : 1;
+
+            if (sum == arr.length) {
+                ans = Math.max(ans, i + 1);
+                continue;
+            }
+
+            if (freq[sum] != -1) {
+                ans = Math.max(ans, i - freq[sum]);
+            } else {
+                freq[sum] = i;
+            }
+        }
+
+        return ans;
+
+    }
 }
