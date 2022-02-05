@@ -1,6 +1,23 @@
 import java.util.*;
 import java.io.*;
 
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode() {
+    }
+
+    ListNode(int val) {
+        this.val = val;
+    }
+
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
 class feb {
 
     // =============================== leetcode 121
@@ -104,6 +121,49 @@ class feb {
         }
 
         return ans;
+
+    }
+
+    // ====================== leetcode 23
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists.length == 0)
+            return null;
+
+        ListNode dummy = lists[0];
+        for (int i = 1; i < lists.length; i++) {
+            if (lists[i] != null)
+                dummy = mergeTwoLL(dummy, lists[i]);
+        }
+        return dummy;
+    }
+
+    public ListNode mergeTwoLL(ListNode r1, ListNode r2) {
+        if (r1 == null)
+            return r2;
+        if (r2 == null)
+            return r1;
+
+        ListNode dummy = new ListNode();
+        ListNode temp = dummy;
+
+        while (r1 != null && r2 != null) {
+            if (r1.val < r2.val) {
+                temp.next = r1;
+                r1 = r1.next;
+            } else {
+                temp.next = r2;
+                r2 = r2.next;
+            }
+            temp = temp.next;
+        }
+
+        if (r1 != null) {
+            temp.next = r1;
+        }
+        if (r2 != null) {
+            temp.next = r2;
+        }
+        return dummy.next;
 
     }
 }
