@@ -167,18 +167,15 @@ class feb {
 
     }
 
-    
     // ?================= leetcode 80
-    public int  r emoveDup licates(int[] arr) {
-        int i tr =   0, ptr = 0; 
+    public int removeDuplicates(int[] arr) {
+        int itr = 0, ptr = 0;
         while (itr < arr.length) {
+            arr[ptr++] = arr[itr++];
 
-               
-                
-            if (i tr < arr.length && arr[itr] == arr[ptr -   1])
-                
-         
-
+            if (itr < arr.length && arr[itr] == arr[ptr - 1])
+                arr[ptr++] = arr[itr++];
+            while (itr < arr.length && arr[itr] == arr[ptr - 1])
                 itr++;
         }
 
