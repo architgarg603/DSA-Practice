@@ -166,4 +166,22 @@ class feb {
         return dummy.next;
 
     }
+
+    
+    // ?================= leetcode 80
+    public int  r emoveDup licates(int[] arr) {
+        int i tr =   0, ptr = 0; 
+        while (itr < arr.length) {
+
+               
+                
+            if (i tr < arr.length && arr[itr] == arr[ptr -   1])
+                
+         
+
+                itr++;
+        }
+
+        return ptr;
+    }
 }
