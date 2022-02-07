@@ -181,4 +181,18 @@ class feb {
 
         return ptr;
     }
+
+    // ========================= leetcode 389
+    public char findTheDifference(String s, String t) {
+        int[] freq = new int[128];
+        for (int i = 0; i < s.length(); i++)
+            freq[s.charAt(i)]++;
+        for (int i = 0; i < t.length(); i++)
+            freq[t.charAt(i)]--;
+        for (int i = 92; i < 128; i++)
+            if (freq[i] == -1)
+                return (char) (i);
+        return ' ';
+
+    }
 }
