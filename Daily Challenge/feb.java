@@ -195,4 +195,19 @@ class feb {
         return ' ';
 
     }
+
+    // ======================== leetcode 258
+    public int addDigits(int n) {
+        if (n <= 9)
+            return n;
+        int ans = 0;
+        while (n > 0) {
+            int r = n % 10;
+            ans += r;
+            n /= 10;
+        }
+
+        return addDigits(ans);
+    }
+
 }
