@@ -210,4 +210,26 @@ class feb {
         return addDigits(ans);
     }
 
+    // =============================== leetcode 532
+    public int findPairs(int[] arr, int k) {
+        Arrays.sort(arr);
+        HashSet<Integer> map = new HashSet<>();
+        HashSet<Integer> check = new HashSet<>();
+        int ans = 0;
+        for(int i=0;i<arr.length;i++){
+            if(map.contains(arr[i] - k) ){
+               
+                ans++;
+                map.remove(arr[i] - k);
+            }
+            if(!check.contains(arr[i])){
+            map.add(arr[i]);
+                check.add(arr[i]);
+            }
+        }
+        
+        return ans;
+    }
+
+
 }
