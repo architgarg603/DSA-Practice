@@ -216,20 +216,38 @@ class feb {
         HashSet<Integer> map = new HashSet<>();
         HashSet<Integer> check = new HashSet<>();
         int ans = 0;
-        for(int i=0;i<arr.length;i++){
-            if(map.contains(arr[i] - k) ){
-               
+        for (int i = 0; i < arr.length; i++) {
+            if (map.contains(arr[i] - k)) {
+
                 ans++;
                 map.remove(arr[i] - k);
             }
-            if(!check.contains(arr[i])){
-            map.add(arr[i]);
+            if (!check.contains(arr[i])) {
+                map.add(arr[i]);
                 check.add(arr[i]);
             }
         }
-        
+
         return ans;
     }
 
+    // ============================= leetcode 560
+    public int subarraySum(int[] arr, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+        int ans = 0;
+        map.put(0, 1);
+        for (int ele : arr) {
+
+            sum += ele;
+            if (map.containsKey(sum - k))
+                ans += map.get(sum - k);
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+
+        }
+
+        return ans;
+
+    }
 
 }
