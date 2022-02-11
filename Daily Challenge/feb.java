@@ -250,4 +250,29 @@ class feb {
 
     }
 
+    // ========================= leetcode 567
+    public boolean checkInclusion(String s1, String s2) {
+        int req = s1.length();
+        int[] freq = new int[128];
+        for(int i=0;i<s1.length();i++)freq[s1.charAt(i)]++;
+        
+        int si =0,ei=0;
+        
+        while(ei<s2.length()){
+            
+            if(freq[s2.charAt(ei++)]-- > 0)req--;
+            
+            while(ei - si > s1.length()){
+                if(freq[s2.charAt(si++)]++ >=0)req++;
+            }
+            
+            if(req==0)return true;
+            
+            
+        }
+        
+        return false;
+        
+    }
+
 }
