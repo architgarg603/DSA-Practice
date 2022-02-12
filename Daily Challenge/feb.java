@@ -254,25 +254,67 @@ class feb {
     public boolean checkInclusion(String s1, String s2) {
         int req = s1.length();
         int[] freq = new int[128];
-        for(int i=0;i<s1.length();i++)freq[s1.charAt(i)]++;
-        
-        int si =0,ei=0;
-        
-        while(ei<s2.length()){
-            
-            if(freq[s2.charAt(ei++)]-- > 0)req--;
-            
-            while(ei - si > s1.length()){
-                if(freq[s2.charAt(si++)]++ >=0)req++;
+        for (int i = 0; i < s1.length(); i++)
+            freq[s1.charAt(i)]++;
+
+        int si = 0, ei = 0;
+
+        while (ei < s2.length()) {
+
+            if (freq[s2.charAt(ei++)]-- > 0)
+                req--;
+
+            while (ei - si > s1.length()) {
+                if (freq[s2.charAt(si++)]++ >= 0)
+                    req++;
             }
-            
-            if(req==0)return true;
-            
-            
+
+            if (req == 0)
+                return true;
+
         }
-        
+
         return false;
-        
+
     }
 
+    // ===================================leetcode 127
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        HashSet<String> map = new HashSet<>();
+        for (String str : wordList)
+            map.add(str);
+        if (!map.contains(endWord))
+            return 0;
+
+        Queue<String> qu = new LinkedList<>();
+        qu.add(beginWord);
+
+        int cnt = 0;
+
+        while (qu.size() > 0) {
+            int size = qu.size();
+            cnt++;
+            while (size-- > 0) {
+
+                String temp = qu.remove();
+                if (temp.equals(endWord))
+                    return cnt;
+
+                for (int i = 0; i < temp.length(); i++) {
+                    for (int j = 0; j < 26; j++) {
+                        String str = temp.substring(0, i) + (char) (97 + j) + temp.substring(i + 1);
+
+                        if (map.contains(str)) {
+                            qu.add(str);
+                            map.remove(str);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return 0;
+
+    }
 }
