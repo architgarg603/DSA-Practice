@@ -317,4 +317,27 @@ class feb {
         return 0;
 
     }
+
+    // =========================== leetcode 78
+    public List<List<Integer>> subsets(int[] nums) {
+        List<Integer> temp = new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
+        solve(nums, ans, temp, 0);
+
+        return ans;
+    }
+
+    public void solve(int[] arr, List<List<Integer>> ans, List<Integer> temp, int idx) {
+        if (idx == arr.length) {
+            List<Integer> base = new ArrayList<>(temp);
+            ans.add(base);
+            return;
+        }
+
+        solve(arr, ans, temp, idx + 1);
+        temp.add(arr[idx]);
+        solve(arr, ans, temp, idx + 1);
+        temp.remove(temp.size() - 1);
+
+    }
 }
