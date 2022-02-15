@@ -346,4 +346,11 @@ class feb {
         if(root == null)return 0;
         return Math.max(maxDepth(root.left),maxDepth(root.right))+1;
     }
+
+    // ================================== leetcode 136
+    public int singleNumber(int[] nums) {
+        int ans =0;
+        for(int ele : nums)ans ^= ele;
+        return ans;
+    }
 }
