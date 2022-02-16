@@ -353,4 +353,26 @@ class feb {
         for(int ele : nums)ans ^= ele;
         return ans;
     }
+    // ========================24
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null)return head;
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode curr = dummy;
+        
+        while(curr != null && curr.next != null && curr.next.next != null){
+            ListNode t1 = curr.next;
+            ListNode t2 = t1.next;
+            
+            t1.next = t2.next;
+            t2.next = t1;
+            curr.next = t2;
+            
+            curr = t1;
+            
+        }
+        
+        return dummy.next;
+        
+    }
 }
