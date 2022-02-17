@@ -343,36 +343,65 @@ class feb {
 
     // ========================================== leetcode 104
     public int maxDepth(TreeNode root) {
-        if(root == null)return 0;
-        return Math.max(maxDepth(root.left),maxDepth(root.right))+1;
+        if (root == null)
+            return 0;
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 
     // ================================== leetcode 136
     public int singleNumber(int[] nums) {
-        int ans =0;
-        for(int ele : nums)ans ^= ele;
+        int ans = 0;
+        for (int ele : nums)
+            ans ^= ele;
         return ans;
     }
+
     // ========================24
     public ListNode swapPairs(ListNode head) {
-        if(head == null || head.next == null)return head;
+        if (head == null || head.next == null)
+            return head;
         ListNode dummy = new ListNode();
         dummy.next = head;
         ListNode curr = dummy;
-        
-        while(curr != null && curr.next != null && curr.next.next != null){
+
+        while (curr != null && curr.next != null && curr.next.next != null) {
             ListNode t1 = curr.next;
             ListNode t2 = t1.next;
-            
+
             t1.next = t2.next;
             t2.next = t1;
             curr.next = t2;
-            
+
             curr = t1;
-            
+
         }
-        
+
         return dummy.next;
-        
+
+    }
+
+    // =========================== leetcode 39
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        combinationSum(candidates, target, ans, temp, 0);
+        return ans;
+    }
+
+    public void combinationSum(int[] arr, int tar, List<List<Integer>> ans, List<Integer> temp, int idx) {
+
+        if (tar == 0) {
+            ans.add(new ArrayList<>(temp));
+            return;
+        }
+
+        for (int i = idx; i < arr.length; i++) {
+            if (tar - arr[i] >= 0) {
+                temp.add(arr[i]);
+                combinationSum(arr, tar - arr[i], ans, temp, i);
+                temp.remove(temp.size() - 1);
+            }
+        }
+
     }
 }
