@@ -404,4 +404,40 @@ class feb {
         }
 
     }
+
+    // =============================== leetcode 402
+    public String removeKdigits(String str, int k) {
+        Stack<Character> st = new Stack<>();
+        
+        for(int i=0;i<str.length();i++){
+            while(st.size()>0 && st.peek()>str.charAt(i) && k>0 ){
+                st.pop();
+                k--;
+            }
+            
+            if(st.size() == 0 && str.charAt(i) == '0'){
+                continue;
+            }else{
+                st.push(str.charAt(i));
+            }
+        }
+        
+        while(k>0 && st.size()>0 ){
+            st.pop();
+            k--;
+        }
+        
+        
+        StringBuilder sb = new StringBuilder();
+        while(st.size()>0){
+            sb.append(st.pop());
+        }
+        
+        if(sb.length()==0)
+            return "0";
+        else return sb.reverse().toString();
+        
+        
+        
+    }
 }
