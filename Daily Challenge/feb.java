@@ -408,36 +408,62 @@ class feb {
     // =============================== leetcode 402
     public String removeKdigits(String str, int k) {
         Stack<Character> st = new Stack<>();
-        
-        for(int i=0;i<str.length();i++){
-            while(st.size()>0 && st.peek()>str.charAt(i) && k>0 ){
+
+        for (int i = 0; i < str.length(); i++) {
+            while (st.size() > 0 && st.peek() > str.charAt(i) && k > 0) {
                 st.pop();
                 k--;
             }
-            
-            if(st.size() == 0 && str.charAt(i) == '0'){
+
+            if (st.size() == 0 && str.charAt(i) == '0') {
                 continue;
-            }else{
+            } else {
                 st.push(str.charAt(i));
             }
         }
-        
-        while(k>0 && st.size()>0 ){
+
+        while (k > 0 && st.size() > 0) {
             st.pop();
             k--;
         }
-        
-        
+
         StringBuilder sb = new StringBuilder();
-        while(st.size()>0){
+        while (st.size() > 0) {
             sb.append(st.pop());
         }
-        
-        if(sb.length()==0)
+
+        if (sb.length() == 0)
             return "0";
-        else return sb.reverse().toString();
-        
-        
-        
+        else
+            return sb.reverse().toString();
+
+    }
+
+    // =========================== 1675
+    public int minimumDeviation(int[] arr) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
+            return b - a;
+        });
+        int minVal = Integer.MAX_VALUE;
+        for (int ele : arr) {
+
+            if (ele % 2 == 1)
+                ele *= 2;
+            minVal = Math.min(minVal, ele);
+            pq.add(ele);
+
+        }
+        int diff = Integer.MAX_VALUE;
+        while (pq.peek() % 2 != 1) {
+            int ele = pq.remove();
+            diff = Math.min(diff, ele - minVal);
+            minVal = Math.min(minVal, ele / 2);
+            pq.add(ele / 2);
+        }
+
+        diff = Math.min(diff, pq.peek() - minVal);
+
+        return diff;
+
     }
 }
