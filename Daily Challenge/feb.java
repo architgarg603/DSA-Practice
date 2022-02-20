@@ -466,4 +466,20 @@ class feb {
         return diff;
 
     }
+
+    // ==================== leetcode 1288
+    public int removeCoveredIntervals(int[][] arr) {
+        Arrays.sort(arr, (a, b) -> {
+            return a[0] == b[0] ? b[1] - a[1] : a[0] - b[0];
+        });
+        int ans = arr.length;
+        int maxEnd = arr[0][1];
+        for (int i = 1; i < arr.length; i++) {
+            if (maxEnd >= arr[i][1])
+                ans--;
+            maxEnd = Math.max(arr[i][1], maxEnd);
+        }
+
+        return ans;
+    }
 }
