@@ -482,4 +482,22 @@ class feb {
 
         return ans;
     }
+    // ============================== leetcode 165
+    public int compareVersion(String version1, String version2) {
+        String[] str1 = version1.split("\\.");
+        String[] str2 = version2.split("\\.");
+        
+        int i=0;
+        for( i=0;i<str1.length || i<str2.length;i++){
+            int t1 = i>=str1.length ? 0 :Integer.parseInt(str1[i]);
+            int t2 = i>=str2.length?0:Integer.parseInt(str2[i]);
+            
+            if(t1<t2){
+                return -1;
+            }
+            
+            if(t1>t2)return 1;
+        }
+        return 0;
+    }
 }
