@@ -482,22 +482,67 @@ class feb {
 
         return ans;
     }
+
     // ============================== leetcode 165
     public int compareVersion(String version1, String version2) {
         String[] str1 = version1.split("\\.");
         String[] str2 = version2.split("\\.");
-        
-        int i=0;
-        for( i=0;i<str1.length || i<str2.length;i++){
-            int t1 = i>=str1.length ? 0 :Integer.parseInt(str1[i]);
-            int t2 = i>=str2.length?0:Integer.parseInt(str2[i]);
-            
-            if(t1<t2){
+
+        int i = 0;
+        for (i = 0; i < str1.length || i < str2.length; i++) {
+            int t1 = i >= str1.length ? 0 : Integer.parseInt(str1[i]);
+            int t2 = i >= str2.length ? 0 : Integer.parseInt(str2[i]);
+
+            if (t1 < t2) {
                 return -1;
             }
-            
-            if(t1>t2)return 1;
+
+            if (t1 > t2)
+                return 1;
         }
         return 0;
+    }
+
+    // ============================ leetcode 662
+    class maxWidth {
+        TreeNode node = null;
+        int idx = 0;
+
+        maxWidth(TreeNode node, int idx) {
+            this.idx = idx;
+            this.node = node;
+        }
+    }
+
+    public int widthOfBinaryTree(TreeNode root) {
+        if (root == null)
+            return 0;
+        int ans = 0;
+
+        Queue<maxWidth> qu = new LinkedList<>();
+        qu.add(new maxWidth(root, 1));
+
+        while (qu.size() > 0) {
+            int mx = 0, mn = 0;
+            int size = qu.size();
+            for (int i = 0; i < size; i++) {
+
+                maxWidth temp = qu.remove();
+                if (i == 0)
+                    mn = temp.idx;
+                if (i == size - 1)
+                    mx = temp.idx;
+
+                if (temp.node.left != null)
+                    qu.add(new maxWidth(temp.node.left, 2 * temp.idx));
+                if (temp.node.right != null)
+                    qu.add(new maxWidth(temp.node.right, 2 * temp.idx + 1));
+
+            }
+            ans = Math.max(ans, mx - mn + 1);
+
+        }
+
+        return ans;
     }
 }
