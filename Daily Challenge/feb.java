@@ -545,4 +545,20 @@ class feb {
 
         return ans;
     }
+    // =========================leetcode 228
+    public List<String> summaryRanges(int[] arr) {
+        List<String> ans = new ArrayList<>();
+        int ei = 1,si=0;
+        
+        while(ei<arr.length){
+          while(ei<arr.length && arr[ei] == arr[ei-1]+1)ei++;
+           if(si == ei-1)
+               ans.add(""+arr[si]);
+            else ans.add(arr[si]+"->"+arr[ei-1]);
+            si = ei++;  
+        }
+        if(si == arr.length)return ans;
+        ans.add(""+arr[si]);
+        return ans;
+    }
 }
