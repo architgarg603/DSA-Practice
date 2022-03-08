@@ -1,6 +1,25 @@
 import java.util.*;
 import java.io.*;
 
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode() {
+    }
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
 class ListNode {
     int val;
     ListNode next;
@@ -545,57 +564,69 @@ class feb {
 
         return ans;
     }
+
     // =========================leetcode 228
     public List<String> summaryRanges(int[] arr) {
         List<String> ans = new ArrayList<>();
-        int ei = 1,si=0;
-        
-        while(ei<arr.length){
-          while(ei<arr.length && arr[ei] == arr[ei-1]+1)ei++;
-           if(si == ei-1)
-               ans.add(""+arr[si]);
-            else ans.add(arr[si]+"->"+arr[ei-1]);
-            si = ei++;  
+        int ei = 1, si = 0;
+
+        while (ei < arr.length) {
+            while (ei < arr.length && arr[ei] == arr[ei - 1] + 1)
+                ei++;
+            if (si == ei - 1)
+                ans.add("" + arr[si]);
+            else
+                ans.add(arr[si] + "->" + arr[ei - 1]);
+            si = ei++;
         }
-        if(si == arr.length)return ans;
-        ans.add(""+arr[si]);
+        if (si == arr.length)
+            return ans;
+        ans.add("" + arr[si]);
         return ans;
     }
+
     // ================================799
     public double champagneTower(int poured, int query_row, int query_glass) {
-        
-        double[][] dp = new double[query_row+1][query_row+1];
-        for(double[] arr : dp)
-            Arrays.fill(arr,-1);
-        
-        return Math.min(1,champagneTowerHelper(poured,query_row,query_glass,dp));
+
+        double[][] dp = new double[query_row + 1][query_row + 1];
+        for (double[] arr : dp)
+            Arrays.fill(arr, -1);
+
+        return Math.min(1, champagneTowerHelper(poured, query_row, query_glass, dp));
     }
-    
-    public double champagneTowerHelper(int p, int r, int g, double[][] dp){
-        if(r<0 || g<0)return 0.00;
-        if(r==0 && g==0)return dp[r][g]= (double)(p);
-        if(dp[r][g] != -1)return dp[r][g];
-        double left = g==0 ? 0 : (champagneTowerHelper(p,r-1,g-1, dp)-1)/2;
-        double right = (champagneTowerHelper(p,r-1,g,dp)-1)/2;
-        
-        if(left < 0)left = 0;
-        if(right<0) right = 0;
-        
-        return dp[r][g]=  left+right;
-        
-        
+
+    public double champagneTowerHelper(int p, int r, int g, double[][] dp) {
+        if (r < 0 || g < 0)
+            return 0.00;
+        if (r == 0 && g == 0)
+            return dp[r][g] = (double) (p);
+        if (dp[r][g] != -1)
+            return dp[r][g];
+        double left = g == 0 ? 0 : (champagneTowerHelper(p, r - 1, g - 1, dp) - 1) / 2;
+        double right = (champagneTowerHelper(p, r - 1, g, dp) - 1) / 2;
+
+        if (left < 0)
+            left = 0;
+        if (right < 0)
+            right = 0;
+
+        return dp[r][g] = left + right;
+
     }
-    // ============================================= leetcode  141
+
+    // ============================================= leetcode 141
     public boolean hasCycle(ListNode head) {
-        if(head == null || head.next == null)return false;
+        if (head == null || head.next == null)
+            return false;
         ListNode slow = head.next;
         ListNode fast = head.next.next;
-        while(fast != null && fast.next != null){
-            if(slow == fast)return true;
+        while (fast != null && fast.next != null) {
+            if (slow == fast)
+                return true;
             slow = slow.next;
             fast = fast.next.next;
         }
-        
+
         return false;
     }
 }
