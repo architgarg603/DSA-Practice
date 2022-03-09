@@ -629,4 +629,26 @@ class feb {
 
         return false;
     }
+
+    // ============================================== leetcode 82
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        ListNode dummy = new ListNode();
+        ListNode temp = dummy;
+        ListNode itr = head;
+        while (itr != null ) {
+           if(itr.next != null && itr.val == itr.next.val){
+               while(itr.next != null && itr.val == itr.next.val)itr = itr.next;
+               itr = itr.next;
+           }else{
+               temp.next = itr;
+               temp = temp.next;
+                itr = itr.next;
+               temp.next = null;
+           }
+        }
+        return dummy.next;
+
+    }
 }
