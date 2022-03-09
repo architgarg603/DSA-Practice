@@ -178,6 +178,92 @@ class searchingAndSorting {
         return arr[si];
     }
 
+    // =============================== lintcode 848
+    public boolean isCheck(int[] arr, int k, double dis) {
+        int cnt = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            cnt += (int) (arr[i + 1] - arr[i]) / dis;
+            if (cnt > k)
+                return false;
+        }
+        return true;
+    }
+
+    public double minmaxGasDist(int[] arr, int k) {
+        double si = 0;
+        double ei = Integer.MAX_VALUE;
+        while (ei - si > (1e-6)) {
+            double mid = si + (ei - si) / 2.0;
+            if (!isCheck(arr, k, mid)) {
+                si = mid + 1e-6;
+            } else {
+                ei = mid;
+            }
+        }
+
+        return ei;
+    }
+
+    // ==================================================== leetcode 1101
+
+    public boolean isDeliverable(int[] arr, int d, int k) {
+        int day = 1;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (sum > k) {
+                sum = arr[i];
+                day++;
+            }
+            if (arr[i] > k)
+                return false;
+            if (day > d)
+                return false;
+        }
+        return true;
+    }
+
+    public int shipWithinDays(int[] weights, int days) {
+        int si = 0, ei = (int) (1e9);
+        while (si < ei) {
+            int mid = si + (ei - si) / 2;
+            if (!isDeliverable(weights, days, mid)) {
+                si = mid + 1;
+            } else {
+                ei = mid;
+            }
+        }
+
+        return ei;
+    }
+
+    // ======================================= leetcode 875
+    public int minEatingSpeed(int[] arr, int h) {
+        int si = 0, ei = (int) (1e9);
+        Arrays.sort(arr);
+        while (si < ei) {
+            int mid = si + (ei - si) / 2;
+            if (!isEatable(arr, h, mid)) {
+                si = mid + 1;
+            } else {
+                ei = mid;
+            }
+        }
+
+        return ei;
+    }
+
+    public boolean isEatable(int[] arr, int h, int speed) {
+        int cnt = 0;
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            cnt += Math.ceil(arr[i] / (speed * 1.0));
+            if (cnt > h)
+                return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         int[] arr = new int[] { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 
