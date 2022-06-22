@@ -4,9 +4,9 @@ class Solution {
         
         for(int i : nums){
             pq.add(i);
-            if(pq.size()>k)pq.remove();
         }
         
+            while(pq.size()>k)pq.remove();
         return pq.remove();
     }
 }
