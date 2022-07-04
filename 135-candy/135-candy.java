@@ -9,11 +9,10 @@ class Solution {
             }
             
             int peak = 0;
-            while(ratings[i] > ratings [i-1]){
+            while(i<n && ratings[i] > ratings [i-1]){
                 peak++;
                 candy += peak;
                 i++;
-                if(i == n) return candy;
             }
             
             int valley = 0;
