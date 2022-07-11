@@ -21,16 +21,13 @@ class Solution {
         qu.add(root);
         while(qu.size()>0){
             int size = qu.size();
-            while(size-->1){
-                TreeNode nn = qu.remove();
+            TreeNode nn = null;
+            while(size-->0){
+                nn = qu.remove();
                 if(nn.left != null)qu.add(nn.left);
                 if(nn.right != null)qu.add(nn.right);
             }
-            
-                TreeNode nn = qu.remove();
-                if(nn.left != null)qu.add(nn.left);
-                if(nn.right != null)qu.add(nn.right);
-                arr.add(nn.val);
+            arr.add(nn.val);
         }
         
         return arr;
