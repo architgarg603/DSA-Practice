@@ -1,17 +1,17 @@
 class NumArray {
     int[] sum = null;
     public NumArray(int[] arr) {
-        sum = new int[arr.length];
+        sum = new int[arr.length+1];
         int x = 0;
         for(int i=0;i<arr.length;i++){
-            x += arr[i];
             sum[i] = x;
+            x += arr[i];
         }
+        sum[arr.length] = x;
     }
     
     public int sumRange(int left, int right) {
-        // System.out.println( sum[right]+ " "+ (left == 0 ? 0 : sum[left - 1]));
-        return  sum[right] - (left == 0 ? 0 : sum[left - 1]);
+        return  sum[right+1] - sum[left];
     }
 }
 
