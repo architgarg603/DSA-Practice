@@ -5,7 +5,7 @@ class Solution {
         
         if(sum ==0 && sum%4 >0)return false;
         int[]  dp = new int[4];
-        
+        Arrays.sort(arr);
         return solve(arr,dp,arr.length-1, sum/4);
     }
     
