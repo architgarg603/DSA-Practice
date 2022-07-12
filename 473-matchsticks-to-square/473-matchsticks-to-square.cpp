@@ -7,11 +7,6 @@ private:
         for ( int i = 0 ; i < 4 ; i ++ ){
             if ( bucket[i] + matchsticks.at(index) > bucketsize) continue ;  
            
-            int j = i ;
-            while ( --j >= 0) 
-                if ( bucket[i] == bucket[j]) break;
-            
-            if ( j != -1 ) continue ;
             
             bucket.at(i) += matchsticks.at(index);
             if ( canMake ( index + 1 , bucketsize , matchsticks , bucket )) return true;
