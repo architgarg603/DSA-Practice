@@ -5,6 +5,7 @@ class Solution {
         if(sum == 0 || sum%2 > 0 )return false;
         
         int[][] dp =new int[arr.length+1][sum+1];
+        Arrays.sort(arr);
         for(int[] x : dp)
             Arrays.fill(x,-1);
         
