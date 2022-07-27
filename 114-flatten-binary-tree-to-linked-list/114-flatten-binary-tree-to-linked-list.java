@@ -14,27 +14,27 @@
  * }
  */
 class Solution {
-    
-    private TreeNode rightMost(TreeNode root, TreeNode curr){
-        while(root.right != null && root.right != curr)root = root.right;
-        return root;
+    public void flatten(TreeNode root) {
+        solve(root);
     }
     
-    public void flatten(TreeNode root) {
-        TreeNode curr = root;
+    public TreeNode solve(TreeNode root){
+        if(root == null || (root.left == null && root.right == null))
+            return root;
         
-        while(curr != null){
-           if(curr.left != null){
-               TreeNode rm = rightMost(curr.left, curr);
-               rm.right = curr.right;
-               
-               curr.right = curr.left;
-               curr.left = null;
-           }
-            
-            curr = curr.right;
+        TreeNode left = solve(root.left);
+        TreeNode right = solve(root.right);
+        
+        if(left != null){
+            left.right = root.right;
+            root.right = root.left;
         }
         
+        root.left = null;
+        
+        
+        
+        return right == null ? left : right;
         
     }
 }
