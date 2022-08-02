@@ -7,14 +7,14 @@ class Solution {
         for(int i=0;i<n;i++)
             pq.add(new int[]{i,0});
         
-        while(pq.size()>0 && k-->1){
+        while( k-->1){
             int[] curr = pq.remove();
             if(curr[1]<n-1){
                 curr[1]++;
                 pq.add(curr);
             }
         }
-        int[] a = pq.remove();
+        int[] a = pq.peek();
         return arr[a[0]][a[1]];
     }
 }
