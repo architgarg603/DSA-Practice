@@ -20,6 +20,8 @@ class Solution {
         if(root == null)
             return false;
         
+        if(this.ans != null)
+            return false;
         
         boolean left  = solve(root.left, p, q);
         boolean right = solve(root.right, p ,q);
