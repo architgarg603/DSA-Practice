@@ -1,22 +1,32 @@
 class Solution {
-
-     public int getNext(int n) {
-        int totalSum = 0;
-        while (n > 0) {
-            int d = n % 10;
-            n = n / 10;
-            totalSum += d * d;
+    public int solve(int n){
+        int ans =0;
+        while(n!=0){
+            int rem = n%10;
+            ans += (rem*rem);
+            n=n/10;
+            
         }
-        return totalSum;
+        return ans;
     }
-
     public boolean isHappy(int n) {
-        int slowRunner = n;
-        int fastRunner = getNext(n);
-        while (fastRunner != 1 && slowRunner != fastRunner) {
-            slowRunner = getNext(slowRunner);
-            fastRunner = getNext(getNext(fastRunner));
+        
+        HashSet<Integer>set = new HashSet<>();
+        
+        while(true){
+            int newNumber = solve(n);
+            if(newNumber==1){
+                return true;
+            }
+            if(set.contains(newNumber)){
+                return false;
+            }
+            set.add(newNumber);
+            n = newNumber;
+            
+            
         }
-        return fastRunner == 1;
+        
+        
     }
 }
